@@ -1,6 +1,7 @@
 package game;
 
 import game.utils.Message;
+import game.utils.Printer;
 
 public class Goblin extends Monster {
     private boolean isAngry;
@@ -18,7 +19,7 @@ public class Goblin extends Monster {
         if (!isAngry && hp <= maxHp / 2 && hp > 0) {
             isAngry = true;
 
-            System.out.println(Message.goblinAngry(this));
+            Printer.println(Message.goblinAngry(this));
         }
     }
 
@@ -27,7 +28,7 @@ public class Goblin extends Monster {
         int power = isAngry ? (attackPower + 5) : attackPower;
         target.decreaseHp(power);
 
-        System.out.println(Message.monsterAttack(this, target, power));
+        Printer.println(Message.monsterAttack(this, target, power));
     }
 
     public boolean getIsAngry() {

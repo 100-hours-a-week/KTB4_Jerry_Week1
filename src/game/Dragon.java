@@ -2,6 +2,9 @@ package game;
 
 import game.enums.Element;
 import game.utils.Message;
+import game.utils.Printer;
+
+import java.util.List;
 
 public class Dragon extends Monster {
     private Element element;
@@ -16,7 +19,7 @@ public class Dragon extends Monster {
     public void attack(Character target) {
         target.decreaseHp(attackPower);
 
-        System.out.println(Message.dragonAttack(this, target, attackPower));
+        Printer.println(Message.dragonAttack(this, target, attackPower));
     }
 
     public Element getElement() {

@@ -4,9 +4,15 @@ import game.*;
 import game.Character;
 import game.enums.Job;
 
+import java.util.List;
+
 public class Message {
     public static String encounter(Character monster) {
         return monster.getName() + "이 야생에 나타났다!";
+    }
+
+    public static String encounterExtra(Character monster) {
+        return "\n!![추가] 추가로 " + monster.getName() + "이 야생에 나타났다! 조심하자..!";
     }
 
     public static String escape() {
@@ -57,6 +63,14 @@ public class Message {
         return "행동을 선택하세요:  1.공격한다  2.도망간다";
     }
 
+    public static String selectTarget(List<Monster> monsters) {
+        StringBuilder sb = new StringBuilder("공격할 대상을 선택하세요: ");
+        for (int i = 0; i < monsters.size(); i++) {
+            sb.append(i + 1).append(".").append(monsters.get(i).getName()).append(" ");
+        }
+        return sb.toString();
+    }
+
     public static String killMonster(Character monster) {
         return monster.getName() + "을 쓰러트렸다!";
     }
@@ -66,18 +80,25 @@ public class Message {
     }
 
     public static String defeat(Player player) {
-        return player.getName() + "가 쓰러졌다... " +  player.getName() + "는 눈앞이 깜깜해졌다...";
+        return player.getName() + "가 쓰러졌다... " + player.getName() + "는 눈앞이 깜깜해졌다...";
     }
 
-    public static String battleStatus(Player player, Monster monster) {
-        return "==========\n"
-                + player.getName() + " hp: " + player.getHp() + "\n" + monster.getName() + " hp: " + monster.getHp() + "\n"
-                + "==========\n";
+    public static String battleStatus(Player player, List<Monster> monsters) {
+        StringBuilder sb = new StringBuilder("==========\n").append(player.getName()).append(" hp: ").append(player.getHp()).append("\n");
+        for (Monster m : monsters) {
+            sb.append(m.getName()).append(" hp: ").append(m.getHp()).append("\n");
+        }
+        sb.append("==========\n");
+        return sb.toString();
     }
 
     public static String playerStatus(Player player) {
         return "==========\n"
                 + player.getName() + " Lv: " + player.getLevel() + " hp: " + player.getHp() + "\n"
                 + "==========\n";
+    }
+
+    public static String exploring() {
+        return "풀숲을 돌아다니는 중...";
     }
 }

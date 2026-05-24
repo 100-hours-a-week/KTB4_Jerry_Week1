@@ -2,6 +2,7 @@ package game;
 
 import game.enums.Job;
 import game.utils.Message;
+import game.utils.Printer;
 
 public class Player extends Character {
     private int level;
@@ -27,13 +28,13 @@ public class Player extends Character {
     }
 
     public void escape() {
-        System.out.println(Message.escape());
+        Printer.println(Message.escape());
     }
 
     public void gainExp(int expAmount) {
         exp += expAmount;
 
-        System.out.println(Message.gainExp(expAmount));
+        Printer.println(Message.gainExp(expAmount));
 
         if (exp >= 10) {
             levelUp();
@@ -43,7 +44,7 @@ public class Player extends Character {
     public void gainGold(int goldAmount) {
         gold += goldAmount;
 
-        System.out.println(Message.gainGold(goldAmount));
+        Printer.println(Message.gainGold(goldAmount));
     }
 
     private void levelUp() {
@@ -52,7 +53,7 @@ public class Player extends Character {
         attackPower += 5;
         hp = maxHp;
 
-        System.out.println(Message.levelUp(this));
+        Printer.println(Message.levelUp(this));
     }
 
     public int getLevel() {

@@ -3,6 +3,7 @@ package game.enums;
 import game.Character;
 import game.Player;
 import game.utils.Message;
+import game.utils.Printer;
 
 public enum Job {
     WARRIOR("전사", "소울드라이브"),
@@ -30,6 +31,6 @@ public enum Job {
         int power = attacker.getAttackPower();
         target.decreaseHp(power);
 
-        System.out.println(Message.useSkill(attacker, target, this, power));
+        Printer.println(Message.useSkill(attacker, target, this, power));
     }
 }

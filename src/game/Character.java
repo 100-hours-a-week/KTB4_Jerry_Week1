@@ -20,13 +20,12 @@ public abstract class Character {
         target.decreaseHp(attackPower);
     }
 
-    public void decreaseHp(int amount) {
+    public synchronized void decreaseHp(int amount) {
         this.hp = Math.max(0, this.hp - amount);
     }
 
     public boolean isDead() {
-        if (hp == 0) return true;
-        else return false;
+        return hp == 0;
     }
 
     public String getName() {
