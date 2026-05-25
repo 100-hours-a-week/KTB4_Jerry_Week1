@@ -19,6 +19,10 @@ public class Message {
         return "무사히 도망쳤다!";
     }
 
+    public static String escapeLost(int amount) {
+        return "도망치느라 골드 " + amount + "원을 흘렸다...";
+    }
+
     public static String levelUp(Player player) {
         return player.getName() + "가 레벨 " + player.getLevel() + "(으)로 올랐다!\n" + "레벨이 올라서 hp를 모두 회복했다!";
     }

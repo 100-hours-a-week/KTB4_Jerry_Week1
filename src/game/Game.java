@@ -125,12 +125,18 @@ public class Game {
 
     private void attackPhase() throws IOException {
         Monster target = chooseTarget();
-        player.attack(target);
+        int damage = player.attack(target);
+        Printer.println(Message.useSkill(player, target, player.getJob(), damage));
 
         if (target.isDead()) {
             Printer.println(Message.killMonster(target));
+
             player.gainGold(target.getGoldReward());
+            Printer.println(Message.gainGold(target.getGoldReward()));
+
             player.gainExp(target.getExpReward());
+            Printer.println(Message.gainExp(target.getExpReward()));
+
             monsters.remove(target);
             encounterTask.updateMonsterCount(monsters.size());
             Printer.print("\n");
@@ -170,7 +176,8 @@ public class Game {
                 synchronized (player) {
                     if (player.isDead()) return;
 
-                    m.attack(player);
+                    int damage = m.attack(player);
+                    Printer.println(m.describeAttack(player, damage));
                 }
             }, "attack by " + m.getName());
             monsterThreads.add(t);
@@ -190,7 +197,12 @@ public class Game {
     }
 
     private void escape() {
-        player.escape();
+        int lostGold = player.escape();
+        Printer.println(Message.escape());
+        if (lostGold > 0) {
+            Printer.println(Message.escapeLost(lostGold));
+        }
+
         monsters.clear();
         encounterTask.updateMonsterCount(0);
     }

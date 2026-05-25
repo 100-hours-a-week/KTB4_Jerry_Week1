@@ -24,11 +24,15 @@ public class Goblin extends Monster {
     }
 
     @Override
-    public void attack(Character target) {
+    public int attack(Character target) {
         int power = isAngry ? (attackPower + 5) : attackPower;
         target.decreaseHp(power);
+        return power;
+    }
 
-        Printer.println(Message.monsterAttack(this, target, power));
+    @Override
+    public String describeAttack(Character target, int damage) {
+        return Message.monsterAttack(this, target, damage);
     }
 
     public boolean getIsAngry() {

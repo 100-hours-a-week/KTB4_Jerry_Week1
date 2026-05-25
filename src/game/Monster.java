@@ -12,6 +12,8 @@ public abstract class Monster extends Character {
         this.goldReward = goldReward;
     }
 
+    public abstract String describeAttack(Character target, int damage);
+
     public int getExpReward() {
         return expReward;
     }

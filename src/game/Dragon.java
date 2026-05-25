@@ -2,9 +2,6 @@ package game;
 
 import game.enums.Element;
 import game.utils.Message;
-import game.utils.Printer;
-
-import java.util.List;
 
 public class Dragon extends Monster {
     private Element element;
@@ -16,10 +13,14 @@ public class Dragon extends Monster {
     }
 
     @Override
-    public void attack(Character target) {
+    public int attack(Character target) {
         target.decreaseHp(attackPower);
+        return attackPower;
+    }
 
-        Printer.println(Message.dragonAttack(this, target, attackPower));
+    @Override
+    public String describeAttack(Character target, int damage) {
+        return Message.dragonAttack(this, target, damage);
     }
 
     public Element getElement() {

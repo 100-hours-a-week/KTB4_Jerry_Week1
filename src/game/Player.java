@@ -14,8 +14,7 @@ public class Player extends Character {
     private Job job;
 
     Player(String name, int maxHp, int attackPower, Job job) {
-        super(name, maxHp, attackPower);
-
+        super(name, maxHp, attackPower + job.getPlusPower());
         this.level = 1;
         this.exp = 0;
         this.gold = 0;
@@ -23,18 +22,21 @@ public class Player extends Character {
     }
 
     @Override
-    public void attack(Character target) {
-        job.useSkill(this, target);
+    public int attack(Character target) {
+        target.decreaseHp(attackPower);
+        return attackPower;
     }
 
-    public void escape() {
-        Printer.println(Message.escape());
+    public int escape() {
+        int result = Math.max(gold - 3, 0);
+        int lostGold = gold - result;
+        this.gold = result;
+
+        return lostGold;
     }
 
     public void gainExp(int expAmount) {
         exp += expAmount;
-
-        Printer.println(Message.gainExp(expAmount));
 
         if (exp >= 10) {
             levelUp();
@@ -43,8 +45,6 @@ public class Player extends Character {
 
     public void gainGold(int goldAmount) {
         gold += goldAmount;
-
-        Printer.println(Message.gainGold(goldAmount));
     }
 
     private void levelUp() {

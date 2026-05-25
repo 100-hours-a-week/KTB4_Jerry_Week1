@@ -16,8 +16,9 @@ public abstract class Character {
         this.attackPower = attackPower;
     }
 
-    public void attack(Character target) {
+    public int attack(Character target) {
         target.decreaseHp(attackPower);
+        return attackPower;
     }
 
     public synchronized void decreaseHp(int amount) {
