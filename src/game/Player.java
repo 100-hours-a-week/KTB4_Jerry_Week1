@@ -4,6 +4,8 @@ import game.enums.Job;
 import game.utils.Message;
 import game.utils.Printer;
 
+import java.util.Random;
+
 public class Player extends Character {
     private int level;
 
@@ -13,12 +15,15 @@ public class Player extends Character {
 
     private Job job;
 
-    Player(String name, int maxHp, int attackPower, Job job) {
+    private final Random random;
+
+    Player(String name, int maxHp, int attackPower, Job job, Random random) {
         super(name, maxHp, attackPower + job.getPlusPower());
         this.level = 1;
         this.exp = 0;
         this.gold = 0;
         this.job = job;
+        this.random = random;
     }
 
     @Override
@@ -27,12 +32,12 @@ public class Player extends Character {
         return attackPower;
     }
 
-    public int escape() {
-        int result = Math.max(gold - 3, 0);
-        int lostGold = gold - result;
-        this.gold = result;
-
-        return lostGold;
+    public boolean escape() {
+        if (hp < 50 && !random.nextBoolean()) {
+            return false;
+        }
+        gold = Math.max(gold - 3, 0);
+        return true;
     }
 
     public void gainExp(int expAmount) {

@@ -52,7 +52,7 @@ public class EncounterTask implements Runnable {
     }
 
     private Monster createMonster() {
-        // 몬스터 종류별 기본 스탯을 상수나 enum 으로 빼기
+        // 몬스터 종류별 기본 스탯을 상수나 enum으로 빼기
         if (random.nextInt(2) == 0) {
             return new Goblin("고블린", 50, 5, 4, 5);
         } else {

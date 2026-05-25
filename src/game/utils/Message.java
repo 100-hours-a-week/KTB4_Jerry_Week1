@@ -19,6 +19,10 @@ public class Message {
         return "무사히 도망쳤다!";
     }
 
+    public static String escapeFailed() {
+        return "[도망 실패] 앗! 다리가 후들거려서 도망치지 못했다...";
+    }
+
     public static String escapeLost(int amount) {
         return "도망치느라 골드 " + amount + "원을 흘렸다...";
     }
@@ -104,5 +108,9 @@ public class Message {
 
     public static String exploring() {
         return "풀숲을 돌아다니는 중...";
+    }
+
+    public static String retryInput() {
+        return "다시 입력해주세요.";
     }
 }

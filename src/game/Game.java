@@ -3,6 +3,7 @@ package game;
 import game.enums.Job;
 import game.utils.Message;
 import game.utils.Printer;
+import game.utils.Validator;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -101,23 +102,26 @@ public class Game {
     }
 
     private Player selectJob() throws IOException {
-        Printer.println(Message.selectJob());
-        int choice = Integer.parseInt(br.readLine());
-        Job job = Job.values()[choice - 1];
+        String prompt = Message.selectJob();
+        Printer.println(prompt);
+        int choice = readChoice(prompt, 1, 4);
+        Job job = Job.fromCode(choice);
 
-        return new Player("용사", 100, 20, job);
+        return new Player("용사", 100, 20, job, random);
     }
 
     private void playerTurn() throws IOException {
         Printer.println(Message.battleStatus(player, monsters));
-        Printer.println(Message.actionOption());
-        int choice = Integer.parseInt(br.readLine());
+        String prompt = Message.actionOption();
+        Printer.println(prompt);
+        int choice = readChoice(prompt, 1, 2);
 
         if (choice == 1) {
             attackPhase();
         } else {
-            escape();
-            return;
+            if (escape()) {
+                return;
+            }
         }
 
         monsterCounterAttack();
@@ -148,8 +152,9 @@ public class Game {
             return monsters.get(0);
         }
 
-        Printer.println(Message.selectTarget(monsters));
-        int idx = Integer.parseInt(br.readLine()) - 1;
+        String prompt = Message.selectTarget(monsters);
+        Printer.println(prompt);
+        int idx = readChoice(prompt, 1, monsters.size()) - 1;
         return monsters.get(idx);
     }
 
@@ -196,8 +201,15 @@ public class Game {
         }
     }
 
-    private void escape() {
-        int lostGold = player.escape();
+    private boolean escape() {
+        int goldBefore = player.getGold();
+
+        if (!player.escape()) {
+            Printer.println(Message.escapeFailed());
+            return false;
+        }
+
+        int lostGold = goldBefore - player.getGold();
         Printer.println(Message.escape());
         if (lostGold > 0) {
             Printer.println(Message.escapeLost(lostGold));
@@ -205,6 +217,7 @@ public class Game {
 
         monsters.clear();
         encounterTask.updateMonsterCount(0);
+        return true;
     }
 
     private boolean sleepBetweenPolls(long millis) {
@@ -229,6 +242,17 @@ public class Game {
                 encounterThread.join(1000);  // 최대 1초 대기하기
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
+            }
+        }
+    }
+
+    private int readChoice(String prompt, int min, int max) throws IOException {
+        while (true) {
+            try {
+                return Validator.parseIntInRange(br.readLine(), min, max);
+            } catch (IllegalArgumentException e) {
+                Printer.println(e.getMessage() + " " + Message.retryInput());
+                Printer.println(prompt);
             }
         }
     }
