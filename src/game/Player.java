@@ -26,14 +26,8 @@ public class Player extends Character {
         this.random = random;
     }
 
-    @Override
-    public int attack(Character target) {
-        target.decreaseHp(attackPower);
-        return attackPower;
-    }
-
     public boolean escape() {
-        if (hp < 50 && !random.nextBoolean()) {
+        if (getHp() < 50 && !random.nextBoolean()) {
             return false;
         }
         gold = Math.max(gold - 3, 0);
@@ -55,8 +49,8 @@ public class Player extends Character {
     private void levelUp() {
         level++;
         exp -= 10;
-        attackPower += 5;
-        hp = maxHp;
+        increaseAttackPower(5);
+        healToMax();
 
         Printer.println(Message.levelUp(this));
     }

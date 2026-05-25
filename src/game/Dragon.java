@@ -13,12 +13,6 @@ public class Dragon extends Monster {
     }
 
     @Override
-    public int attack(Character target) {
-        target.decreaseHp(attackPower);
-        return attackPower;
-    }
-
-    @Override
     public String describeAttack(Character target, int damage) {
         return Message.dragonAttack(this, target, damage);
     }

@@ -16,7 +16,7 @@ public class Goblin extends Monster {
     public void decreaseHp(int amount) {
         super.decreaseHp(amount);
 
-        if (!isAngry && hp <= maxHp / 2 && hp > 0) {
+        if (!isAngry && getHp() <= getMaxHp() / 2 && getHp() > 0) {
             isAngry = true;
 
             Printer.println(Message.goblinAngry(this));
@@ -25,7 +25,8 @@ public class Goblin extends Monster {
 
     @Override
     public int attack(Character target) {
-        int power = isAngry ? (attackPower + 5) : attackPower;
+        int basePower = getAttackPower();
+        int power = isAngry ? (basePower + 5) : basePower;
         target.decreaseHp(power);
         return power;
     }

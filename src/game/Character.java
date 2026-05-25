@@ -1,13 +1,13 @@
 package game;
 
 public abstract class Character {
-    protected String name;
+    private String name;
 
-    protected int maxHp;
+    private int maxHp;
 
-    protected int hp;
+    private int hp;
 
-    protected int attackPower;
+    private int attackPower;
 
     Character(String name, int maxHp, int attackPower) {
         this.name = name;
@@ -29,8 +29,20 @@ public abstract class Character {
         return hp == 0;
     }
 
+    protected void increaseAttackPower(int amount) {
+        this.attackPower += amount;
+    }
+
+    protected void healToMax() {
+        this.hp = maxHp;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public int getMaxHp() {
+        return maxHp;
     }
 
     public int getHp() {

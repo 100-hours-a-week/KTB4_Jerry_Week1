@@ -1,9 +1,9 @@
 package game;
 
 public abstract class Monster extends Character {
-    protected int expReward;
+    private int expReward;
 
-    protected int goldReward;
+    private int goldReward;
 
     Monster(String name, int maxHp, int attackPower, int expReward, int goldReward) {
         super(name, maxHp, attackPower);
