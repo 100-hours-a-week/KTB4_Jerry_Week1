@@ -6,7 +6,7 @@ import game.utils.Printer;
 public class Goblin extends Monster {
     private boolean isAngry;
 
-    Goblin(String name, int maxHp, int attackPower, int expReward, int goldReward) {
+    public Goblin(String name, int maxHp, int attackPower, int expReward, int goldReward) {
         super(name, maxHp, attackPower, expReward, goldReward);
 
         this.isAngry = false;
